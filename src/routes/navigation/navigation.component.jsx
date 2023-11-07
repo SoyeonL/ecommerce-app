@@ -10,7 +10,7 @@ import "./navigation.styles.scss";
 
 const Navigation = () => {
   const { currentUser } = useContext(UserContext);
-  const { isToggle, setIsToggle } = useContext(CartContext);
+  const { isCartOpen } = useContext(CartContext);
 
   return (
     <Fragment>
@@ -31,9 +31,9 @@ const Navigation = () => {
               SIGN IN
             </Link>
           )}
-          <CartIcon onClick />
+          <CartIcon />
         </div>
-        {isToggle && <CartDropdown />}
+        {isCartOpen && <CartDropdown />}
       </div>
       <Outlet />
     </Fragment>
