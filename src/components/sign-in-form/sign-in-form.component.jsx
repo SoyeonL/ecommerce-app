@@ -4,7 +4,7 @@ import FormInput from "../form-input/form-input.component";
 import {
   signInAuthUserWithEmailAndPassword,
   signInWithGooglePopup,
-} from "../../utils/firebase.utils";
+} from "../../utils/firebase/firebase.utils";
 import { SignInContainer, ButtonsContainer } from "./sign-in-form.styles";
 
 const defaultFormFields = {
