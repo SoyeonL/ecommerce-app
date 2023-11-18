@@ -29,10 +29,7 @@ const SignInForm = () => {
     event.preventDefault();
 
     try {
-      const { user } = await signInAuthUserWithEmailAndPassword(
-        email,
-        password
-      );
+      await signInAuthUserWithEmailAndPassword(email, password);
     } catch (error) {
       if (error.code === "auth/invalid-login-credentials") {
         alert("Invalid login credentials");
@@ -43,7 +40,7 @@ const SignInForm = () => {
   };
 
   const handleGoogleLogin = async (event) => {
-    const { user } = await signInWithGooglePopup();
+    await signInWithGooglePopup();
   };
 
   return (
