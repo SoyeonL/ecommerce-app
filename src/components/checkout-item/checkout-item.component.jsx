@@ -16,8 +16,6 @@ import {
 } from "./checkout-item.styles";
 
 const CheckoutItem = ({ item }) => {
-  // const { addItemToCart, removeItemFromCart, clearItemFromCart } =
-  //   useContext(CartContext);
   const dispatch = useDispatch();
   const cartItems = useSelector(selectCartItems);
 
