@@ -5,6 +5,7 @@ import {
   signInFailed,
   googleSignInStart,
   signUpSuccess,
+  signUpFailed,
 } from "./user.action";
 import {
   getCurrentUser,
@@ -52,8 +53,14 @@ export function* signUp({ payload: { email, password, displayName } }) {
       email,
       password
     );
-    yield put(signUpSuccess);
-  } catch (error) {}
+    yield put(signUpSuccess(user, { displayName }));
+  } catch (error) {
+    yield put(signUpFailed(error));
+  }
+}
+
+export function* signInAfterSignUp({ payload: { user, additionalDetails } }) {
+  yield call(getSnapshotFromUserAuth, user, additionalDetails);
 }
 
 export function* onGoogleSignInStart() {
@@ -73,5 +80,10 @@ export function* onSignUpSuccess() {
 }
 
 export function* userSagas() {
-  yield all([call(onCheckUserSession), call(onGoogleSignInStart)]);
+  yield all([
+    call(onCheckUserSession),
+    call(onGoogleSignInStart),
+    call(onSignUpStart),
+    call(signUpSuccess),
+  ]);
 }
