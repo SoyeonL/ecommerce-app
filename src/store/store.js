@@ -11,7 +11,7 @@ import { rootReducer } from "./root-reducer";
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: ["user"],
+  whitelist: ["cart"],
 };
 
 const sagaMiddleware = createSagaMiddleware();
@@ -23,7 +23,13 @@ const middleWares = [
   sagaMiddleware,
 ].filter(Boolean);
 
-const composedEnhancers = compose(applyMiddleware(...middleWares));
+const composeEnhancer =
+  (process.env.NODE_ENV !== "production" &&
+    window &&
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
+  compose;
+
+const composedEnhancers = composeEnhancer(applyMiddleware(...middleWares));
 
 export const store = createStore(
   persistedReducer,

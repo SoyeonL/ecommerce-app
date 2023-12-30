@@ -4,7 +4,10 @@ import Button, { BUTTON_TYPE_CLASSES } from "../button/button.component";
 import FormInput from "../form-input/form-input.component";
 import { signInAuthUserWithEmailAndPassword } from "../../utils/firebase/firebase.utils";
 import { SignInContainer, ButtonsContainer } from "./sign-in-form.styles";
-import { googleSignInStart } from "../../store/user/user.action";
+import {
+  emailSignInStart,
+  googleSignInStart,
+} from "../../store/user/user.action";
 
 const defaultFormFields = {
   email: "",
@@ -29,14 +32,11 @@ const SignInForm = () => {
     event.preventDefault();
 
     try {
-      await signInAuthUserWithEmailAndPassword(email, password);
+      dispatch(emailSignInStart(email, password));
+      resetFormFields();
     } catch (error) {
-      if (error.code === "auth/invalid-login-credentials") {
-        alert("Invalid login credentials");
-      }
-      console.error(error);
+      console.log("user sign in failed", error);
     }
-    resetFormFields();
   };
 
   const signInWithGoogle = async () => {
